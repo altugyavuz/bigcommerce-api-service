@@ -8,6 +8,7 @@ use Illuminate\Http\Client\Response;
 use InvalidArgumentException;
 use Yvz\BigcommerceApiService\Contracts\BigcommerceApiServiceInterface;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductResource;
+use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
 
 class BigcommerceApiService implements BigcommerceApiServiceInterface
 {
@@ -57,6 +58,7 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
     {
         return [
             'products' => ProductResource::class,
+            'variants' => ProductVariantResource::class,
         ];
     }
 

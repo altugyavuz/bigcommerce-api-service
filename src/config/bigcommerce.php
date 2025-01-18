@@ -21,6 +21,13 @@ return [
                     'show' => 'catalog/products/{product_id}/variants/{variant_id}',
                 ],
             ],
+            'modifiers' => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list' => 'catalog/products/{product_id}/modifiers',
+                    'show' => 'catalog/products/{product_id}/modifiers/{modifier_id}',
+                ],
+            ],
         ]
     ]
 ];
