@@ -14,7 +14,13 @@ return [
                     'show' => 'catalog/products/{id}',
                 ],
             ],
-
+            'variants' => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list' => 'catalog/products/{product_id}/variants',
+                    'show' => 'catalog/products/{product_id}/variants/{variant_id}',
+                ],
+            ],
         ]
     ]
 ];
