@@ -1,0 +1,26 @@
+{
+  "name": "yvz/bigcommerce-api-service",
+  "description": "BigCommerce API Service for Laravel applications",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Yvz\\BigcommerceApiService\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Altug Yavuz",
+      "email": "altugyav@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Yvz\\BigcommerceApiService\\BigcommerceApiServiceProvider"
+      ]
+    }
+  }
+}
