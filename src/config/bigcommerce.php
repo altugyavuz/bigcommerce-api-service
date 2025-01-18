@@ -7,6 +7,13 @@ return [
      */
     'api_paths' => [
         'catalog' => [
+            'categories' => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list' => 'catalog/trees/categories',
+                    'show' => 'catalog/trees/categories',
+                ],
+            ],
             'products' => [
                 'version' => 'v3',
                 'paths'   => [

@@ -7,6 +7,8 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use InvalidArgumentException;
 use Yvz\BigcommerceApiService\Contracts\BigcommerceApiServiceInterface;
+use Yvz\BigcommerceApiService\Resources\Catalog\CategoryResource;
+use Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
 
@@ -22,17 +24,14 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
 
     public function __construct(string $storeHash, string $accessToken)
     {
-        $this->baseUrl     = config('bigcommerce.base_url', 'https://api.bigcommerce.com/stores');
-        $this->headers     = [
-            'Accept'       => 'application/json',
-            'Content-Type' => 'application/json',
-        ];
-        $this->storeHash   = $storeHash;
-        $this->accessToken = $accessToken;
+        $this->baseUrl = config('bigcommerce.base_url', 'https://api.bigcommerce.com/stores');
+        $this->initializeHeaders();
+        $this->updateStoreHash($storeHash);
+        $this->updateAccessToken($accessToken);
     }
 
     /**
-     * Dynamically fetch resource objects like $service->products or $service->orders
+     * Dynamically fetch resource objects like $service->products or $service->orders.
      */
     public function __get(string $name)
     {
@@ -42,67 +41,68 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
             throw new InvalidArgumentException("Resource '{$name}' does not exist.");
         }
 
-        // If the resource has been created before, retrieve it from the cache.
-        if (!isset($this->resources[$name])) {
-            $resourceClass          = $resourceMap[$name];
-            $this->resources[$name] = new $resourceClass($this);
-        }
-
-        return $this->resources[$name];
+        return $this->resources[$name] ?? $this->initializeResource($name, $resourceMap[$name]);
     }
 
     /**
-     * Get resource map to dynamically initialize resources
+     * Set up request headers.
+     */
+    protected function initializeHeaders(): void
+    {
+        $this->headers = [
+            'Accept'       => 'application/json',
+            'Content-Type' => 'application/json',
+        ];
+    }
+
+    /**
+     * Dynamically initialize a resource and cache it.
+     */
+    protected function initializeResource(string $name, string $class)
+    {
+        return $this->resources[$name] = new $class($this);
+    }
+
+    /**
+     * Get a resource map to dynamically initialize resources.
      */
     protected function getResourceMap(): array
     {
         return [
-            'products' => ProductResource::class,
-            'variants' => ProductVariantResource::class,
+            'categories' => CategoryResource::class,
+            'products'   => ProductResource::class,
+            'variants'   => ProductVariantResource::class,
+            'modifiers'  => ProductModifierResource::class,
         ];
     }
 
-    protected function setStoreHash(string $storeHash): void
+    /**
+     * Updates the store hash and stores it locally.
+     */
+    protected function updateStoreHash(string $storeHash): void
     {
         $this->storeHash = $storeHash;
     }
 
-    protected function setAccessToken(string $accessToken): void
+    /**
+     * Updates the access token and refreshes headers.
+     */
+    protected function updateAccessToken(string $accessToken): void
     {
         $this->accessToken             = $accessToken;
         $this->headers['X-Auth-Token'] = $accessToken;
     }
 
     /**
-     * Set up the HTTP client.
+     * Handle a generic HTTP request with dynamic method.
      */
-    protected function createHttpClient(): void
+    private function handleRequest(string $method, string $url, array $parameters = []): array
     {
-        $this->httpClient = Http::withHeaders($this->headers);
-    }
+        $this->httpClient ??= Http::withHeaders($this->headers);
 
-    /**
-     * Perform the actual HTTP request based on the method.
-     */
-    private function makeHttpRequest(string $method, string $url, array $parameters = []): Response
-    {
-        return $method === 'delete'
+        $response = $method === 'delete'
             ? $this->httpClient->{$method}($url)
             : $this->httpClient->{$method}($url, $parameters);
-    }
-
-    /**
-     * Handle a generic HTTP request.
-     */
-    protected function handleRequest(string $method, string $url, array $parameters = []): array
-    {
-        if (!$this->httpClient) {
-            $this->createHttpClient();
-        }
-
-        $method = strtolower($method);
-
-        $response = $this->makeHttpRequest($method, $url, $parameters);
 
         return $response->successful()
             ? [
@@ -136,11 +136,13 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
         $method = strtolower($method);
 
         if (!in_array($method, ['get', 'post', 'put', 'delete', 'head'])) {
-            throw new InvalidArgumentException("Invalid HTTP method: $method");
+            throw new InvalidArgumentException("Invalid HTTP method: {$method}");
         }
 
-        $fullUrl = $this->buildUrl($version, $url);
-
-        return $this->handleRequest($method, $fullUrl, $parameters);
+        return $this->handleRequest(
+            $method,
+            $this->buildUrl($version, $url),
+            $parameters
+        );
     }
 }

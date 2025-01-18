@@ -2,6 +2,7 @@
 
 namespace Yvz\BigcommerceApiService\Resources;
 
+use Illuminate\Support\Facades\Config;
 use Yvz\BigcommerceApiService\Services\BigcommerceApiService;
 
 abstract class BaseResource
@@ -30,5 +31,35 @@ abstract class BaseResource
     protected function request(string $method, string $version, string $url, array $parameters = []): array
     {
         return $this->service->makeRequest($method, $version, $url, $parameters);
+    }
+
+    /**
+     * Handles HTTP requests by constructing the path and optionally removing headers.
+     */
+    protected function handleRequest(
+        string $method,
+        string $version,
+        string $pathKey,
+        array  $parameters,
+        bool   $includeHeaders,
+        array  $pathParams = []
+    ): array
+    {
+        // Resolve the full URL path dynamically.
+        $path = $this->buildPath(Config::get($pathKey), $pathParams);
+
+        $response = $this->request(
+            $method,
+            Config::get($version),
+            $path,
+            $parameters
+        );
+
+        // Remove headers if not needed
+        if (!$includeHeaders) {
+            unset($response['headers']);
+        }
+
+        return $response;
     }
 }

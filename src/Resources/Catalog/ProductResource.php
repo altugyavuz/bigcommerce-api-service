@@ -2,45 +2,37 @@
 
 namespace Yvz\BigcommerceApiService\Resources\Catalog;
 
-use Illuminate\Support\Facades\Config;
-use Psr\Http\Message\ResponseInterface;
 use Yvz\BigcommerceApiService\Resources\BaseResource;
 use Yvz\BigcommerceApiService\Constants\HttpMethods;
 
 class ProductResource extends BaseResource
 {
-    public function list(array $parameters, bool $needHeaders = true): array
+    private const VERSION = 'bigcommerce.api_paths.catalog.products.version';
+    private const PATHS = [
+        'list' => 'bigcommerce.api_paths.catalog.products.paths.list',
+        'show' => 'bigcommerce.api_paths.catalog.products.paths.show',
+    ];
+
+    public function list(array $parameters, bool $includeHeaders = true): array
     {
-        $response = $this->request(
+        return $this->handleRequest(
             HttpMethods::GET,
-            Config::get('bigcommerce.api_paths.catalog.products.version'),
-            Config::get('bigcommerce.api_paths.catalog.products.paths.list'),
+            self::VERSION,
+            self::PATHS['list'],
             $parameters,
+            $includeHeaders
         );
-
-        if (!$needHeaders) {
-            unset($response['headers']);
-        }
-
-        return $response;
     }
 
-    public function show(int $id, array $parameters = [], bool $needHeaders = true): array
+    public function show(int $id, array $parameters = [], bool $includeHeaders = true): array
     {
-        $response = $this->request(
+        return $this->handleRequest(
             HttpMethods::GET,
-            Config::get('bigcommerce.api_paths.catalog.products.version'),
-            $this->buildPath(
-                Config::get('bigcommerce.api_paths.catalog.products.paths.show'),
-                ['id' => $id]
-            ),
+            self::VERSION,
+            self::PATHS['show'],
             $parameters,
+            $includeHeaders,
+            ['id' => $id]
         );
-
-        if (!$needHeaders) {
-            unset($response['headers']);
-        }
-
-        return $response;
     }
 }
