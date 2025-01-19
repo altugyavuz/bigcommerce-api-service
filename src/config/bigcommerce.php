@@ -14,6 +14,13 @@ return [
                     'show' => 'catalog/trees/categories',
                 ],
             ],
+            'brands' => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list' => 'catalog/brands',
+                    'show' => 'catalog/brands/{brand_id}',
+                ],
+            ],
             'products' => [
                 'version' => 'v3',
                 'paths'   => [

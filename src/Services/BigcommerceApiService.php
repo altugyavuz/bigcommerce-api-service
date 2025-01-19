@@ -7,11 +7,19 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use InvalidArgumentException;
 use Yvz\BigcommerceApiService\Contracts\BigcommerceApiServiceInterface;
+use Yvz\BigcommerceApiService\Resources\Catalog\BrandResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\CategoryResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
 
+/**
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\CategoryResource $categories
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\BrandResource $brands
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductResource $products
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource $variants
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource $modifiers
+ */
 class BigcommerceApiService implements BigcommerceApiServiceInterface
 {
     protected string          $baseUrl;
@@ -70,6 +78,7 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
     {
         return [
             'categories' => CategoryResource::class,
+            'brands'     => BrandResource::class,
             'products'   => ProductResource::class,
             'variants'   => ProductVariantResource::class,
             'modifiers'  => ProductModifierResource::class,
