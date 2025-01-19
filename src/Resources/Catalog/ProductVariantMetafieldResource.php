@@ -9,11 +9,12 @@ class ProductVariantMetafieldResource extends BaseResource
 {
     private const VERSION = 'bigcommerce.api_paths.catalog.variant_metafields.version';
     private const PATHS   = [
-        'list'   => 'bigcommerce.api_paths.catalog.variant_metafields.paths.list',
-        'show'   => 'bigcommerce.api_paths.catalog.variant_metafields.paths.show',
-        'create' => 'bigcommerce.api_paths.catalog.variant_metafields.paths.create',
-        'update' => 'bigcommerce.api_paths.catalog.variant_metafields.paths.update',
-        'delete' => 'bigcommerce.api_paths.catalog.variant_metafields.paths.delete',
+        'list'      => 'bigcommerce.api_paths.catalog.variant_metafields.paths.list',
+        'batchList' => 'bigcommerce.api_paths.catalog.variant_metafields.paths.batch_list',
+        'show'      => 'bigcommerce.api_paths.catalog.variant_metafields.paths.show',
+        'create'    => 'bigcommerce.api_paths.catalog.variant_metafields.paths.create',
+        'update'    => 'bigcommerce.api_paths.catalog.variant_metafields.paths.update',
+        'delete'    => 'bigcommerce.api_paths.catalog.variant_metafields.paths.delete',
     ];
 
     public function list(int $productId, int $variantId, array $parameters = [], bool $includeHeaders = true): array
@@ -28,6 +29,17 @@ class ProductVariantMetafieldResource extends BaseResource
                 'product_id' => $productId,
                 'variant_id' => $variantId,
             ]
+        );
+    }
+
+    public function batchList(array $parameters = [], bool $includeHeaders = true): array
+    {
+        return $this->handleRequest(
+            HttpMethods::GET,
+            self::VERSION,
+            self::PATHS['batchList'],
+            $parameters,
+            $includeHeaders
         );
     }
 

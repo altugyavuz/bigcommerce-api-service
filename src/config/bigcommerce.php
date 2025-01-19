@@ -31,8 +31,9 @@ return [
             'variants'           => [
                 'version' => 'v3',
                 'paths'   => [
-                    'list' => 'catalog/products/{product_id}/variants',
-                    'show' => 'catalog/products/{product_id}/variants/{variant_id}',
+                    'list'       => 'catalog/products/{product_id}/variants',
+                    'batch_list' => 'catalog/variants',
+                    'show'       => 'catalog/products/{product_id}/variants/{variant_id}',
                 ],
             ],
             'modifiers'          => [
@@ -52,21 +53,26 @@ return [
             'metafields'         => [
                 'version' => 'v3',
                 'paths'   => [
-                    'list'   => 'catalog/products/{product_id}/metafields',
-                    'show'   => 'catalog/products/{product_id}/metafields/{metafield_id}',
-                    'create' => 'catalog/products/{product_id}/metafields',
-                    'update' => 'catalog/products/{product_id}/metafields/{metafield_id}',
-                    'delete' => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'list'         => 'catalog/products/{product_id}/metafields',
+                    'batch_list'   => 'catalog/products/metafields',
+                    'show'         => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'create'       => 'catalog/products/{product_id}/metafields',
+                    'batch_create' => 'catalog/products/metafields',
+                    'update'       => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'batch_update' => 'catalog/products/metafields',
+                    'delete'       => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'batch_delete' => 'catalog/products/metafields',
                 ],
             ],
             'variant_metafields' => [
                 'version' => 'v3',
                 'paths'   => [
-                    'list'   => 'catalog/products/{product_id}/variants/{variant_id}/metafields',
-                    'show'   => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
-                    'create' => 'catalog/products/{product_id}/variants/{variant_id}/metafields',
-                    'update' => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
-                    'delete' => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
+                    'list'       => 'catalog/products/{product_id}/variants/{variant_id}/metafields',
+                    'batch_list' => 'catalog/variants/metafields',
+                    'show'       => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
+                    'create'     => 'catalog/products/{product_id}/variants/{variant_id}/metafields',
+                    'update'     => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
+                    'delete'     => 'catalog/products/{product_id}/variants/{variant_id}/metafields/{metafield_id}',
                 ],
             ],
         ]
