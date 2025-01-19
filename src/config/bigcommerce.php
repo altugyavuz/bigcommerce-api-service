@@ -42,6 +42,13 @@ return [
                     'show' => 'catalog/products/{product_id}/modifiers/{modifier_id}',
                 ],
             ],
+            'custom_fields' => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list' => 'catalog/products/{product_id}/custom-fields',
+                    'show' => 'catalog/products/{product_id}/custom-fields/{custom_field_id}',
+                ],
+            ],
         ]
     ]
 ];
