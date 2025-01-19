@@ -7,35 +7,35 @@ return [
      */
     'api_paths' => [
         'catalog' => [
-            'categories' => [
+            'categories'    => [
                 'version' => 'v3',
                 'paths'   => [
                     'list' => 'catalog/trees/categories',
                     'show' => 'catalog/trees/categories',
                 ],
             ],
-            'brands' => [
+            'brands'        => [
                 'version' => 'v3',
                 'paths'   => [
                     'list' => 'catalog/brands',
                     'show' => 'catalog/brands/{brand_id}',
                 ],
             ],
-            'products' => [
+            'products'      => [
                 'version' => 'v3',
                 'paths'   => [
                     'list' => 'catalog/products',
                     'show' => 'catalog/products/{id}',
                 ],
             ],
-            'variants' => [
+            'variants'      => [
                 'version' => 'v3',
                 'paths'   => [
                     'list' => 'catalog/products/{product_id}/variants',
                     'show' => 'catalog/products/{product_id}/variants/{variant_id}',
                 ],
             ],
-            'modifiers' => [
+            'modifiers'     => [
                 'version' => 'v3',
                 'paths'   => [
                     'list' => 'catalog/products/{product_id}/modifiers',
@@ -47,6 +47,16 @@ return [
                 'paths'   => [
                     'list' => 'catalog/products/{product_id}/custom-fields',
                     'show' => 'catalog/products/{product_id}/custom-fields/{custom_field_id}',
+                ],
+            ],
+            'metafields'   => [
+                'version' => 'v3',
+                'paths'   => [
+                    'list'   => 'catalog/products/{product_id}/metafields',
+                    'show'   => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'create' => 'catalog/products/{product_id}/metafields',
+                    'update' => 'catalog/products/{product_id}/metafields/{metafield_id}',
+                    'delete' => 'catalog/products/{product_id}/metafields/{metafield_id}',
                 ],
             ],
         ]

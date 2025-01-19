@@ -9,6 +9,7 @@ use Yvz\BigcommerceApiService\Contracts\BigcommerceApiServiceInterface;
 use Yvz\BigcommerceApiService\Resources\Catalog\BrandResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\CategoryResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductCustomFieldResource;
+use Yvz\BigcommerceApiService\Resources\Catalog\ProductMetafieldResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
@@ -20,6 +21,7 @@ use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource $variants
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource $modifiers
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductCustomFieldResource $customFields
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductMetafieldResource $metafields
  */
 class BigcommerceApiService implements BigcommerceApiServiceInterface
 {
@@ -84,6 +86,7 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
             'variants'     => ProductVariantResource::class,
             'modifiers'    => ProductModifierResource::class,
             'customFields' => ProductCustomFieldResource::class,
+            'metafields'   => ProductMetafieldResource::class,
         ];
     }
 
