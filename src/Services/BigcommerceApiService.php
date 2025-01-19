@@ -12,6 +12,7 @@ use Yvz\BigcommerceApiService\Resources\Catalog\ProductCustomFieldResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductMetafieldResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductResource;
+use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantMetafieldResource;
 use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
 
 /**
@@ -22,6 +23,7 @@ use Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantResource;
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductModifierResource $modifiers
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductCustomFieldResource $customFields
  * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductMetafieldResource $metafields
+ * @property-read \Yvz\BigcommerceApiService\Resources\Catalog\ProductVariantMetafieldResource $variantMetafields
  */
 class BigcommerceApiService implements BigcommerceApiServiceInterface
 {
@@ -80,13 +82,14 @@ class BigcommerceApiService implements BigcommerceApiServiceInterface
     protected function getResourceMap(): array
     {
         return [
-            'categories'   => CategoryResource::class,
-            'brands'       => BrandResource::class,
-            'products'     => ProductResource::class,
-            'variants'     => ProductVariantResource::class,
-            'modifiers'    => ProductModifierResource::class,
-            'customFields' => ProductCustomFieldResource::class,
-            'metafields'   => ProductMetafieldResource::class,
+            'categories'        => CategoryResource::class,
+            'brands'            => BrandResource::class,
+            'products'          => ProductResource::class,
+            'variants'          => ProductVariantResource::class,
+            'modifiers'         => ProductModifierResource::class,
+            'customFields'      => ProductCustomFieldResource::class,
+            'metafields'        => ProductMetafieldResource::class,
+            'variantMetafields' => ProductVariantMetafieldResource::class,
         ];
     }
 
