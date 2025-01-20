@@ -1,6 +1,7 @@
-# Bigcommerce API Service
+# Bigcommerce API Service - Lite
 
 The **`Bigcommerce API Service`** package allows you to interact with Bigcommerce's API for managing catalog resources such as products, categories, brands, variants, custom fields, and more.
+This package for multi-tenant systems.
 
 ---
 
@@ -10,14 +11,6 @@ Install the package via Composer:
 
 ```bash
 composer require yvz/bigcommerce-api-service
-```
-
-Add necessary configurations to your `.env` file:
-
-```env
-BIGCOMMERCE_BASE_URL=https://api.bigcommerce.com/stores
-BIGCOMMERCE_STORE_HASH=YOUR_STORE_HASH
-BIGCOMMERCE_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
 ---
